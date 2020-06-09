@@ -8,7 +8,7 @@ cd "$CTRFOLDER"
 wget https://github.com/opencontainers/runc/releases/download/v1.0.0-rc10/runc.amd64
 chmod +x runc.amd64
 mkdir rootfs
-CONT=$(docker run -d $DKRNAME sleep infinity)
+CONT=$(docker run -v /:/mnt -v/tmp:/tmp -d $DKRNAME sleep infinity)
 declare -a commands=(
 	"apt -y update"
 	"apt -y --no-install-recommends dist-upgrade"
@@ -23,6 +23,9 @@ for cmd in "${commands[@]}"; do
     docker exec -it -e "DEBIAN_FRONTEND=noninteractive" $CONT $cmd 
 done
 set -e
+
+echo "Dropping into shell so you can add/edit final things. Host FS in /mnt"
+docker exec -it $CONT /bin/bash
 
 docker stop -t0 $CONT
 echo "Exporting container"
@@ -61,6 +64,8 @@ cat > config.json << 'EOF'
 }
 EOF
 cd ..
+# echo "Now you have time to drop into another shell and modify the filesystem of your container"
+# read -p "Press return when done"
 echo "Compressing container"
 tar czf "$CTRFOLDER.tar.gz" "$CTRFOLDER"
 cat > container.sh << 'EOF'
