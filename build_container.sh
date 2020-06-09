@@ -8,7 +8,7 @@ cd "$CTRFOLDER"
 wget https://github.com/opencontainers/runc/releases/download/v1.0.0-rc10/runc.amd64
 chmod +x runc.amd64
 mkdir rootfs
-CONT=$(sudo sudo docker run -d $DKRNAME sleep infinity)
+CONT=$(docker run -d $DKRNAME sleep infinity)
 declare -a commands=(
 	"apt -y update"
 	"apt -y --no-install-recommends dist-upgrade"
