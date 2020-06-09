@@ -37,8 +37,8 @@ cat > config.json << 'EOF'
 	"process": {
 		"terminal": true,
 		"user": {"uid": 0,"gid": 0},
-		"args": ["bash"],
-		"env": ["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","TERM=xterm"],
+		"args": ["bash","-c","cp /mnt/etc/resolv.conf /etc/; echo 'You may need to run: xhost +si:localuser:root'; bash"],
+		"env": ["PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin","TERM=xterm","DISPLAY=:0"],
 		"cwd": "/",
 		"capabilities": {
 			"bounding": ["CAP_CHOWN","CAP_DAC_OVERRIDE","CAP_DAC_READ_SEARCH","CAP_FOWNER","CAP_FSETID","CAP_KILL","CAP_SETGID","CAP_SETUID","CAP_SETPCAP","CAP_LINUX_IMMUTABLE","CAP_NET_BIND_SERVICE","CAP_NET_BROADCAST","CAP_NET_ADMIN","CAP_NET_RAW","CAP_IPC_LOCK","CAP_IPC_OWNER","CAP_SYS_MODULE","CAP_SYS_RAWIO","CAP_SYS_CHROOT","CAP_SYS_PTRACE","CAP_SYS_PACCT","CAP_SYS_ADMIN","CAP_SYS_BOOT","CAP_SYS_NICE","CAP_SYS_RESOURCE","CAP_SYS_TIME","CAP_SYS_TTY_CONFIG","CAP_MKNOD","CAP_LEASE","CAP_AUDIT_WRITE","CAP_AUDIT_CONTROL","CAP_SETFCAP","CAP_MAC_OVERRIDE","CAP_MAC_ADMIN","CAP_SYSLOG","CAP_WAKE_ALARM","CAP_BLOCK_SUSPEND"],
@@ -81,7 +81,6 @@ if [ ! -d "REPLACE_CTR_FOLDER" ]; then
 fi
 cd "REPLACE_CTR_FOLDER"
 echo "Done, entering container"
-# xhost +si:localuser:root # TODO: Add $DISPLAY env somehow
 sudo ./runc.amd64 run container
 exit 0
 # NOTE: Don't place any newline characters after the last line below.
