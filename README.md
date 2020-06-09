@@ -5,7 +5,7 @@ Builds and packs a ubuntu container &amp; runtime into a single shell script tha
 
 will dump out a container.sh which is the runnable
 # Requirements on build system
-Docker, wget, tar
+Docker, wget, tar, internet access
 # Requirements on usage system
 tar, sh, tail, sudo
 linux kernel with namespaces support
