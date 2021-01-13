@@ -21,10 +21,11 @@ set +e
 for cmd in "${commands[@]}"; do
     docker exec -it -e "DEBIAN_FRONTEND=noninteractive" $CONT $cmd 
 done
-set -e
+
 
 echo "Dropping into shell so you can add/edit final things. Host FS in /mnt"
 docker exec -it $CONT /bin/bash
+set -e
 
 docker stop -t0 $CONT
 echo "Exporting container"
