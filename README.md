@@ -1,7 +1,9 @@
 # portablebuntu
 Builds and packs a ubuntu container &amp; runtime into a single shell script that can be run on any host with linux namespaces support
-# usage
-```sudo bash ./build_container.sh```
+# usage to build for same architecture
+```sudo bash ./build_container_hostarch.sh```
+# usage to build for arm64v8
+```sudo bash ./build_container_arm64.sh```
 
 will dump out a container.sh which is the runnable
 # Requirements on build system
